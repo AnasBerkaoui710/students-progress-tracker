@@ -1,0 +1,117 @@
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h1>Monthly Student Tracking</h1>
+    <p>Record the student's average daily study hours and phone usage.</p>
+
+    <form action="{{ url_for('tracking.monthly_tracking') }}" method="POST">
+
+        <!-- Student selection -->
+        <div class="form-group">
+            <label for="student_id">Select Student</label>
+            <select name="student_id" id="student_id" required>
+                <option value="">-- Select a student --</option>
+
+                {% for student in students %}
+                    <option value="{{ student.id }}">
+                        {{ student.fullname }} - {{ student.educational_level }}
+                    </option>
+                {% endfor %}
+
+            </select>
+        </div>
+
+        <!-- Tracking month -->
+        <div class="form-group">
+            <label for="tracking_month">Tracking Month</label>
+            <input
+                type="month"
+                name="tracking_month"
+                id="tracking_month"
+                required
+            >
+        </div>
+
+        <hr>
+
+        <h3>Study Habits</h3>
+
+        <div class="form-group">
+            <label for="avg_study_hours">
+                Average Daily Study Hours
+            </label>
+            <input
+                type="number"
+                name="avg_study_hours"
+                id="avg_study_hours"
+                min="0"
+                max="24"
+                step="0.01"
+                placeholder="Example: 3.5"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="study_hours_limit">
+                Daily Study Hours Target
+            </label>
+            <input
+                type="number"
+                name="study_hours_limit"
+                id="study_hours_limit"
+                min="0"
+                max="24"
+                step="0.01"
+                placeholder="Example: 4"
+                required
+            >
+        </div>
+
+        <hr>
+
+        <h3>Phone Usage</h3>
+
+        <div class="form-group">
+            <label for="avg_phone_usage_hours">
+                Average Daily Phone Usage (Hours)
+            </label>
+            <input
+                type="number"
+                name="avg_phone_usage_hours"
+                id="avg_phone_usage_hours"
+                min="0"
+                max="24"
+                step="0.01"
+                placeholder="Example: 5.5"
+                required
+            >
+        </div>
+
+        <div class="form-group">
+            <label for="phone_usage_limit">
+                Maximum Daily Phone Usage (Hours)
+            </label>
+            <input
+                type="number"
+                name="phone_usage_limit"
+                id="phone_usage_limit"
+                min="0"
+                max="24"
+                step="0.01"
+                placeholder="Example: 3"
+                required
+            >
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            Save Monthly Tracking
+        </button>
+
+    </form>
+</div>
+
+{% endblock %}
